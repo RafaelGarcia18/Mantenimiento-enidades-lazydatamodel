@@ -10,7 +10,9 @@ controller/controladores/FrmViaje.class
 controller/controladores/FrmTipoEstadoVehiculo.class
 controller/acceso/TipoEstadoReservaFacade.class
 controller/controladores/FrmVehiculo.class
+controller/controladores/FrmTipoVehiculo$1.class
 controller/acceso/TipoVehiculoFacade.class
+controller/controladores/AbstractLazyModel.class
 controller/acceso/ModeloFacade.class
 controller/controladores/FrmModeloParte.class
 controller/controladores/FrmRecorrido.class
