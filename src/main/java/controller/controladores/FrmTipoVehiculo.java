@@ -44,6 +44,10 @@ public class FrmTipoVehiculo implements Serializable {
 
         };
     }
+    
+    public void crear(){
+        service.create(selectTipoVehiculo);
+    }
 
     public void onRowSelected() {
         System.out.println("Row selected");
