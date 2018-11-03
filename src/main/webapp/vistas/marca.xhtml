@@ -1,12 +1,31 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Marca</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:form id="tabla">
+            <h1>Marca</h1>
+            <h:outputText value="No existen registros en la tabla" rendered="#{empty frmMarca.lazyModel}"/>
+            <p:dataTable var="t" value="#{frmMarca.lazyModel}" paginator="true" rows="5" paginatorPosition="bottom" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         selectionMode="single" selection="#{frmMarca.selectMarca}" id="Marca" lazy="true" rendered="#{not empty frmMarca.lazyModel}">
+                <p:column headerText="Id" >
+                    <h:outputText value="#{t.idMarca}" />
+                </p:column>
+                <p:column headerText="Nombre" >
+                    <h:outputText value="#{t.nombre}" />
+                </p:column>
+                <p:column headerText="Descripcion" >
+                    <h:outputText value="#{t.descripcion}" />
+                </p:column>
+                <p:column headerText="Activo" >
+                    <h:outputText value="#{t.activo? 'Activo':'Inactivo'}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </h:body>
 </html>
 

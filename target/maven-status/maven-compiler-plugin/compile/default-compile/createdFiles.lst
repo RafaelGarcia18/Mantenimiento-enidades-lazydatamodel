@@ -28,6 +28,7 @@ controller/controladores/FrmSubTipoParte.class
 controller/controladores/FrmTipoUsuario.class
 controller/controladores/FrmModelo.class
 controller/acceso/TipoEstadoVehiculoFacade.class
+controller/controladores/FrmMarca$1.class
 controller/controladores/FrmEstadoReservaFacade.class
 controller/acceso/AbstractFacade.class
 controller/acceso/ReservaFacade.class
