@@ -5,9 +5,13 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.LazyDataModel;
+import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.TipoUsuario;
 import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.TipoVehiculo;
 
 /**
@@ -18,15 +22,16 @@ import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.TipoVehiculo;
 @ViewScoped
 public class FrmTipoVehiculo implements Serializable {
 
-    private LazyDataModel<TipoVehiculo> lazymodel;
-    private TipoVehiculo selectTipoVehiculo;
-
     @EJB
     private TipoVehiculoFacade service;
+    private LazyDataModel<TipoVehiculo> lazymodel;
+    private TipoVehiculo selectTipoVehiculo;
+    private EstadoCRUD estado;
 
     @PostConstruct
     public void init() {
         final List<TipoVehiculo> dataSource = service.findAll();
+        this.estado = EstadoCRUD.NUEVO;
         this.lazymodel = new AbstractLazyModel(dataSource) {
             @Override
             public Object getRowData(String rowKey) {
@@ -43,14 +48,46 @@ public class FrmTipoVehiculo implements Serializable {
             }
 
         };
-    }
-    
-    public void crear(){
-        service.create(selectTipoVehiculo);
+        this.lazymodel.setRowIndex(-1);
     }
 
-    public void onRowSelected() {
-        System.out.println("Row selected");
+    public void onRowSelect(SelectEvent event) {
+        selectTipoVehiculo = (TipoVehiculo) event.getObject();
+        this.estado = EstadoCRUD.EDITAR;
+    }
+
+    public void onRowDeselect(UnselectEvent event) {
+        this.estado = EstadoCRUD.NUEVO;
+        this.selectTipoVehiculo = new TipoVehiculo();
+        this.lazymodel.setRowIndex(-1);
+    }
+
+    public void btnCancelarHandler(ActionEvent ae) {
+        this.estado = EstadoCRUD.NUEVO;
+        if (this.selectTipoVehiculo != null && this.service != null) {
+            this.selectTipoVehiculo = new TipoVehiculo();
+        }
+    }
+
+    public void btnAgregarHandler(ActionEvent ae) {
+        if (selectTipoVehiculo != null) {
+            service.create(selectTipoVehiculo);
+            init();
+        }
+    }
+
+    public void btnEditarHandler(ActionEvent ae) {
+        if(selectTipoVehiculo != null){
+            service.edit(selectTipoVehiculo);
+            init();
+        }
+    }
+    
+    public void btnEliminarHandler(ActionEvent ae) {
+        if(selectTipoVehiculo != null){
+            service.remove(selectTipoVehiculo);
+            init();
+        }
     }
 
     public LazyDataModel<TipoVehiculo> getLazymodel() {
@@ -58,7 +95,7 @@ public class FrmTipoVehiculo implements Serializable {
     }
 
     public TipoVehiculo getSelectTipoVehiculo() {
-        if(selectTipoVehiculo == null){
+        if (selectTipoVehiculo == null) {
             selectTipoVehiculo = new TipoVehiculo();
         }
         return selectTipoVehiculo;
@@ -66,6 +103,14 @@ public class FrmTipoVehiculo implements Serializable {
 
     public void setSelectTipoVehiculo(TipoVehiculo selectTipoVehiculo) {
         this.selectTipoVehiculo = selectTipoVehiculo;
+    }
+
+    public EstadoCRUD getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoCRUD estado) {
+        this.estado = estado;
     }
 
 }
