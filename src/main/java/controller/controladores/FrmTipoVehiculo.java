@@ -58,6 +58,9 @@ public class FrmTipoVehiculo implements Serializable {
     }
 
     public TipoVehiculo getSelectTipoVehiculo() {
+        if(selectTipoVehiculo == null){
+            selectTipoVehiculo = new TipoVehiculo();
+        }
         return selectTipoVehiculo;
     }
 

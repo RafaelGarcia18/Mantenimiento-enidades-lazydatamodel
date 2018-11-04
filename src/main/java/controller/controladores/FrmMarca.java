@@ -53,6 +53,9 @@ public class FrmMarca implements Serializable {
     }
 
     public Marca getSelectMarca() {
+        if(selectMarca == null){
+            selectMarca = new Marca();
+        }
         return selectMarca;
     }
 
