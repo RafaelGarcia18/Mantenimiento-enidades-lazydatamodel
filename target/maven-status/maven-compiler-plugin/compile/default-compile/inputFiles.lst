@@ -19,7 +19,6 @@
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/acceso/TipoEstadoReservaFacade.java
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/controladores/FrmVehiculo.java
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/controladores/FrmModeloParte.java
-/home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/controladores/AbstractLazyModel.java
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/controladores/FrmModelo.java
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/acceso/ReservaFacade.java
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/acceso/ModeloParteFacade.java
