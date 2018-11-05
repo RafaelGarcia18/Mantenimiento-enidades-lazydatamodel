@@ -120,4 +120,10 @@ public class AbstractLazyModel<T> extends LazyDataModel<T> {
         return null;
     }
 
+    @Override
+    public int getRowIndex() {
+        return super.getRowIndex();
+    }
+
+    
 }

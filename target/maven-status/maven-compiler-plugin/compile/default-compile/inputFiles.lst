@@ -10,6 +10,7 @@
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/controladores/FrmSubTipoParte.java
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/controladores/FrmTipoUsuario.java
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/controladores/FrmTipoParte.java
+/home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/controladores/EstadoCRUD.java
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/acceso/VehiculoFacade.java
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/acceso/TipoEstadoVehiculoFacade.java
 /home/rafael/NetBeansProjects/MantenimientoEntidades/src/main/java/controller/acceso/SubTipoParteFacade.java

@@ -1,6 +1,7 @@
 controller/controladores/FrmTipoEstadoReserva.class
 controller/acceso/SubTipoParteFacade.class
 controller/acceso/EstadoVehiculoFacade.class
+controller/controladores/EstadoCRUD.class
 controller/acceso/EstadoReservaFacade.class
 controller/acceso/VehiculoFacade.class
 controller/acceso/RecorridoFacade.class

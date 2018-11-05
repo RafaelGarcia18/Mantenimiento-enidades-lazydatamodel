@@ -9,49 +9,59 @@
     <h:body>
         <h:form id="tabla">
             <h1>Tipo vehiculo</h1>
-                <h:outputText value="No existen registros en la tabla" rendered="#{empty frmTipoVehiculo.lazymodel}"/>
-                <p:dataTable var="t" value="#{frmTipoVehiculo.lazymodel}" paginator="true" rows="5" paginatorPosition="bottom" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                             selectionMode="single" selection="#{frmTipoVehiculo.selectTipoVehiculo}" id="TipoVehiculo" lazy="true" rendered="#{not empty frmTipoVehiculo.lazymodel}">
-                    <p:column headerText="Id" >
-                        <h:outputText value="#{t.idTipoVehiculo}" />
-                    </p:column>
-                    <p:column headerText="Nombre" >
-                        <h:outputText value="#{t.nombre}" />
-                    </p:column>
-                    <p:column headerText="Peso minimo" >
-                        <h:outputText value="#{t.pesoMinLbs}" />
-                    </p:column>
-                    <p:column headerText="Peso maximo" >
-                        <h:outputText value="#{t.pesoMaxLbs}" />
-                    </p:column>
-                    <p:column headerText="Cantidad de ejes" >
-                        <h:outputText value="#{t.cantidadEjes}" />
-                    </p:column>
-                    <p:column headerText="Activo" >
-                        <h:outputText value="#{t.activo?'Activo':'Inactivo'}" />
-                    </p:column>
-                    <p:column headerText="Descripcion" >
-                        <h:outputText value="#{t.descripcion}" />
-                    </p:column>
-                </p:dataTable>
+            <h:outputText value="No existen registros en la tabla" rendered="#{empty frmTipoVehiculo.lazymodel}"/>
+            <p:dataTable var="t" value="#{frmTipoVehiculo.lazymodel}" paginator="true" rows="5" paginatorPosition="bottom" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         selectionMode="single" id="TipoVehiculo" lazy="true" selection="#{frmTipoVehiculo.selectTipoVehiculo}" rendered="#{not empty frmTipoVehiculo.lazymodel}">
+                <p:column headerText="Id" >
+                    <h:outputText value="#{t.idTipoVehiculo}" />
+                </p:column>
+                <p:column headerText="Nombre" >
+                    <h:outputText value="#{t.nombre}" />
+                </p:column>
+                <p:column headerText="Peso minimo" >
+                    <h:outputText value="#{t.pesoMinLbs}" />
+                </p:column>
+                <p:column headerText="Peso maximo" >
+                    <h:outputText value="#{t.pesoMaxLbs}" />
+                </p:column>
+                <p:column headerText="Cantidad de ejes" >
+                    <h:outputText value="#{t.cantidadEjes}" />
+                </p:column>
+                <p:column headerText="Activo" >
+                    <h:outputText value="#{t.activo?'Activo':'Inactivo'}" />
+                </p:column>
+                <p:column headerText="Descripcion" >
+                    <h:outputText value="#{t.descripcion}" />
+                </p:column>
+                <p:ajax event="rowSelect" listener="#{frmTipoVehiculo.onRowSelect}" update=":formulariocrud"/>
+                <p:ajax event="rowUnselect" listener="#{frmTipoVehiculo.onRowDeselect}" update=":formulariocrud"/>
+            </p:dataTable>
         </h:form>
 
         <h:form id ="formulariocrud">
-            <h:panelGrid columns="2">
-                <h:outputText value="Nombre"/>
-                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.nombre}" required="true"/>
-                <h:outputText value="Peso min"/>
-                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.pesoMinLbs}" required="true"/>
-                <h:outputText value="Peso max"/>
-                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.pesoMaxLbs}" required="true"/>
-                <h:outputText value="Cantidad ejes"/>
-                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.cantidadEjes}" required="true"/>
-                <h:outputText value="Activo"/>
-                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.activo}" required="true"/>
-                <h:outputText value="Descripcion"/>
-                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.descripcion}" required="true"/>
-                <h:commandButton actionListener="#{frmTipoVehiculo.crear()}" value="Crear" />
+            <h:panelGrid columns="2" id="formulariodatos">
+                <h:outputLabel value="Nombre" for="txtNombre"/>
+                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.nombre}" required="true" id="txtNombre"/>
+                <h:outputLabel value="Peso min" for="txtPesoMin"/>
+                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.pesoMinLbs}" required="true" id="txtPesoMin"/>
+                <h:outputLabel value="Peso max" for="txtPesoMax"/>
+                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.pesoMaxLbs}" required="true" id="txtPesoMax"/>
+                <h:outputLabel value="Cantidad ejes" for="txtEjes"/>
+                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.cantidadEjes}" required="true" id="txtEjes"/>
+                <h:outputLabel value="Activo" for="chActivo"/>
+                <h:selectBooleanCheckbox id="chActivo" required="true" value="#{frmTipoVehiculo.selectTipoVehiculo.activo}"></h:selectBooleanCheckbox>
+                <h:outputLabel value="Descripcion" for="txtDescripcion"/>
+                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.descripcion}" required="true" id="txtDescripcion"/>
             </h:panelGrid>
+            <h:panelGroup id="botones2">
+                
+
+
+            <p:commandButton actionListener="#{frmTipoVehiculo.btnAgregarHandler}" value="Crear" update="formulariodatos, tabla, botones2" rendered="#{frmTipoVehiculo.estado == 'NUEVO'}"/>
+            <p:commandButton value="Actualizar" update="formulariodatos, tabla, botones2" actionListener="#{frmTipoVehiculo.btnEditarHandler}" rendered="#{frmTipoVehiculo.estado == 'EDITAR'}"/>
+            <p:commandButton value="Borrar" update="formulariodatos, tabla, botones2" actionListener="#{frmTipoVehiculo.btnEliminarHandler}" rendered="#{frmTipoVehiculo.estado == 'EDITAR'}"/>
+            <p:commandButton value="Cancelar" update="formulariodatos, tabla, botones2" actionListener="#{frmTipoVehiculo.btnCancelarHandler}" />
+            </h:panelGroup>
         </h:form>
     </h:body>
 </html>

@@ -2,7 +2,11 @@ package controller.controladores;
 
 import controller.acceso.TipoVehiculoFacade;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.event.ActionEvent;
@@ -11,7 +15,7 @@ import javax.faces.view.ViewScoped;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.LazyDataModel;
-import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.TipoUsuario;
+import org.primefaces.model.SortOrder;
 import sv.edu.uesocc.ingenieria.prn335_2018.flota.datos.definicion.TipoVehiculo;
 
 /**
@@ -27,27 +31,59 @@ public class FrmTipoVehiculo implements Serializable {
     private LazyDataModel<TipoVehiculo> lazymodel;
     private TipoVehiculo selectTipoVehiculo;
     private EstadoCRUD estado;
+    private List<TipoVehiculo> dataSource ;
 
     @PostConstruct
     public void init() {
-        final List<TipoVehiculo> dataSource = service.findAll();
+        
         this.estado = EstadoCRUD.NUEVO;
-        this.lazymodel = new AbstractLazyModel(dataSource) {
+        this.lazymodel = new LazyDataModel<TipoVehiculo>() {
             @Override
-            public Object getRowData(String rowKey) {
-                for (TipoVehiculo car : dataSource) {
-                    if (car.getIdTipoVehiculo().toString().equals(rowKey)) {
-                        return car;
+                public Object getRowKey(TipoVehiculo object) {
+                    if (object != null) {
+                        return object.getIdTipoVehiculo();
                     }
+                    return null;
                 }
-                return null;
-            }
 
-            public Object getRowKey(TipoVehiculo car) {
-                return car.getIdTipoVehiculo();
-            }
+                @Override
+                public TipoVehiculo getRowData(String rowKey) {
+                    if (rowKey != null && !rowKey.isEmpty() && this.getWrappedData() != null) {
+                        try {
+                            Integer search = new Integer(rowKey);
+                            for (TipoVehiculo tu : (List<TipoVehiculo>) getWrappedData()) {
+                                if (tu.getIdTipoVehiculo().compareTo(search) == 0) {
+                                    return tu;
+                                }
+                            }
+                        } catch (NumberFormatException e) {
+                            Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
+                        }
+                    }
+                    return null;
+                }
+
+                @Override
+                public List<TipoVehiculo> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                    dataSource = new ArrayList<>();
+                    try {
+                        if (service != null) {
+                            this.setRowCount(service.count());
+                            dataSource = service.findRange(first, pageSize);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Excepcion" + e.getMessage());
+                    }
+                    return dataSource;
+                }
+
+                @Override
+                public int getRowIndex() {
+                    return super.getRowIndex();
+                }
 
         };
+        this.selectTipoVehiculo = new TipoVehiculo();
         this.lazymodel.setRowIndex(-1);
     }
 
@@ -63,10 +99,8 @@ public class FrmTipoVehiculo implements Serializable {
     }
 
     public void btnCancelarHandler(ActionEvent ae) {
+        init();
         this.estado = EstadoCRUD.NUEVO;
-        if (this.selectTipoVehiculo != null && this.service != null) {
-            this.selectTipoVehiculo = new TipoVehiculo();
-        }
     }
 
     public void btnAgregarHandler(ActionEvent ae) {
