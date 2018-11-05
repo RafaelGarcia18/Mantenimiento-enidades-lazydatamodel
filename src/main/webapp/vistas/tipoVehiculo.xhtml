@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:btc="http://xmlns.jcp.org/jsf/composite/templates">
     <h:head>
         <title>Tipo Vehiculo</title>
     </h:head>
@@ -53,12 +54,7 @@
                 <h:outputLabel value="Descripcion" for="txtDescripcion"/>
                 <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.descripcion}" required="true" id="txtDescripcion"/>
             </h:panelGrid>
-            <h:panelGroup id="botones2">
-                <p:commandButton value="Crear" update="formulariocrud, tabla" actionListener="#{frmTipoVehiculo.btnAgregarHandler}" rendered="#{frmTipoVehiculo.estado == 'NUEVO'}"/>
-                <p:commandButton value="Actualizar" update="formulariocrud, tabla" actionListener="#{frmTipoVehiculo.btnEditarHandler}" rendered="#{frmTipoVehiculo.estado == 'EDITAR'}"/>
-                <p:commandButton value="Borrar" update="formulariocrud, tabla" actionListener="#{frmTipoVehiculo.btnEliminarHandler}" rendered="#{frmTipoVehiculo.estado == 'EDITAR'}"/>
-                <p:commandButton value="Cancelar" update="formulariocrud, tabla" actionListener="#{frmTipoVehiculo.btnCancelarHandler}" />
-            </h:panelGroup>
+            <btc:botonesCrud backinBean="#{frmTipoVehiculo}" />
         </h:form>
     </h:body>
 </html>

@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:btc="http://xmlns.jcp.org/jsf/composite/templates">
     <h:head>
         <title>Marca</title>
     </h:head>
@@ -38,12 +39,7 @@
                 <h:outputLabel value="Activo" for="chActivo"/>
                 <h:selectBooleanCheckbox id="chActivo" required="true" value="#{frmMarca.selectMarca.activo}"></h:selectBooleanCheckbox>
             </h:panelGrid>
-            <h:panelGroup id="botones2">
-                <p:commandButton value="Crear" update="formulariocrud, tabla" actionListener="#{frmMarca.btnAgregarHandler}" rendered="#{frmMarca.estado == 'NUEVO'}"/>
-                <p:commandButton value="Actualizar" update="formulariocrud, tabla" actionListener="#{frmMarca.btnEditarHandler}" rendered="#{frmMarca.estado == 'EDITAR'}"/>
-                <p:commandButton value="Borrar" update="formulariocrud, tabla" actionListener="#{frmMarca.btnEliminarHandler}" rendered="#{frmMarca.estado == 'EDITAR'}"/>
-                <p:commandButton value="Cancelar" update="formulariocrud, tabla" actionListener="#{frmMarca.btnCancelarHandler}" />
-            </h:panelGroup>
+            <btc:botonesCrud backinBean="#{frmMarca}"/>
         </h:form>
     </h:body>
 </html>
