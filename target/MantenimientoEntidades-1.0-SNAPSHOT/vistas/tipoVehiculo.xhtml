@@ -52,7 +52,7 @@
                 <h:outputLabel value="Activo" for="chActivo"/>
                 <h:selectBooleanCheckbox id="chActivo" required="true" value="#{frmTipoVehiculo.selectTipoVehiculo.activo}"></h:selectBooleanCheckbox>
                 <h:outputLabel value="Descripcion" for="txtDescripcion"/>
-                <h:inputText value="#{frmTipoVehiculo.selectTipoVehiculo.descripcion}" required="true" id="txtDescripcion"/>
+                <h:inputTextarea value="#{frmTipoVehiculo.selectTipoVehiculo.descripcion}" required="true" id="txtDescripcion"/>
             </h:panelGrid>
             <btc:botonesCrud backinBean="#{frmTipoVehiculo}" />
         </h:form>

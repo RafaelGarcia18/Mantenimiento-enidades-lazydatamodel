@@ -1,12 +1,50 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:btc="http://xmlns.jcp.org/jsf/composite/composite">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Tipo Estado Vehiculo</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:form id="tabla">
+            <h1>Tipo Estado Vehiculo</h1>
+            <h:outputText value="No existen registros en la tabla" rendered="#{empty frmTipoEstadoVehiculo.lazyModel}"/>
+            <p:dataTable var="t" value="#{frmTipoEstadoVehiculo.lazyModel}" paginator="true" rows="5" paginatorPosition="bottom" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         selectionMode="single" selection="#{frmTipoEstadoVehiculo.selectTEstadoVehiculo}" id="Marca" lazy="true" rendered="#{not empty frmTipoEstadoVehiculo.lazyModel}">
+                <p:column headerText="Id" >
+                    <h:outputText value="#{t.idTipoEstadoVehiculo}" />
+                </p:column>
+                <p:column headerText="Nombre" >
+                    <h:outputText value="#{t.nombre}" />
+                </p:column>
+                <p:column headerText="Activo" >
+                    <h:outputText value="#{t.activo?'Activo':'Inactivo'}" />
+                </p:column>
+                <p:column headerText="Observaciones" >
+                    <h:outputText value="#{t.observaciones}"/>
+                </p:column>
+                <p:column headerText="Disponible" >
+                    <h:outputText value="#{t.noDisponible?'No Disponible':'Disponible'}" />
+                </p:column>
+                <p:ajax event="rowSelect" listener="#{frmTipoEstadoVehiculo.onRowSelect}" update=":formulariocrud"/>
+                <p:ajax event="rowUnselect" listener="#{frmTipoEstadoVehiculo.onRowDeselect}" update=":formulariocrud"/>
+            </p:dataTable>
+        </h:form>
+        <h:form id ="formulariocrud">
+            <h:panelGrid columns="2" id="formulariodatos">
+                <h:outputLabel value="Nombre" for="txtNombre"/>
+                <h:inputText value="#{frmTipoEstadoVehiculo.selectTEstadoVehiculo.nombre}" required="true" id="txtNombre"/>
+                <h:outputLabel value="Activo" for="chActivo"/>
+                <h:selectBooleanCheckbox id="chActivo" required="true" value="#{frmTipoEstadoVehiculo.selectTEstadoVehiculo.activo}"></h:selectBooleanCheckbox>
+                <h:outputLabel value="Observaciones" for="txtObservaciones"/>
+                <h:inputTextarea value="#{frmTipoEstadoVehiculo.selectTEstadoVehiculo.observaciones}" id="txtObservaciones"/>
+                <h:outputLabel value="No Disponible" for="chDisponible"/>
+                <h:selectBooleanCheckbox id="chDisponible" required="true" value="#{frmTipoEstadoVehiculo.selectTEstadoVehiculo.noDisponible}"></h:selectBooleanCheckbox>
+            </h:panelGrid>
+            <btc:botonesCrud backinBean="#{frmTipoEstadoVehiculo}"/>
+        </h:form>
     </h:body>
 </html>
 

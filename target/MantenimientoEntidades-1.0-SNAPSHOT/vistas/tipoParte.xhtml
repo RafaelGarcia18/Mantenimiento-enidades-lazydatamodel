@@ -36,7 +36,7 @@
                 <h:outputLabel value="Activo" for="chActivo"/>
                 <h:selectBooleanCheckbox id="chActivo" required="true" value="#{frmTipoParte.selectTipoParte.activo}"></h:selectBooleanCheckbox>
                 <h:outputLabel value="Observaciones" for="txtObservaciones"/>
-                <h:inputText value="#{frmTipoParte.selectTipoParte.observaciones}" id="txtObservaciones"/>
+                <h:inputTextarea value="#{frmTipoParte.selectTipoParte.observaciones}" id="txtObservaciones"/>
             </h:panelGrid>
             <btc:botonesCrud backinBean="#{frmTipoParte}"/>
         </h:form>

@@ -1,12 +1,50 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:btc="http://xmlns.jcp.org/jsf/composite/composite">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Tipo Estado Reserva</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:form id="tabla">
+            <h1>Tipo Estado Reserva</h1>
+            <h:outputText value="No existen registros en la tabla" rendered="#{empty frmTipoEstadoReserva}"/>
+            <p:dataTable var="t" value="#{frmTipoEstadoReserva.lazyModel}" paginator="true" rows="5" paginatorPosition="bottom" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         selectionMode="single" selection="#{frmTipoEstadoReserva.selectTEstadoReserva}" id="Marca" lazy="true" rendered="#{not empty frmTipoEstadoReserva.lazyModel}">
+                <p:column headerText="Id" >
+                    <h:outputText value="#{t.idTipoEstadoReserva}" />
+                </p:column>
+                <p:column headerText="Nombre" >
+                    <h:outputText value="#{t.nombre}" />
+                </p:column>
+                <p:column headerText="Activo" >
+                    <h:outputText value="#{t.activo?'Activo':'Inactivo'}" />
+                </p:column>
+                <p:column headerText="Indica aprobacion" >
+                    <h:outputText value="#{t.indicaAprobacion? 'Aprobado':'No aprobado'}" />
+                </p:column>
+                <p:column headerText="Observaciones" >
+                    <h:outputText value="#{t.observaciones}" />
+                </p:column>
+                <p:ajax event="rowSelect" listener="#{frmTipoEstadoReserva.onRowSelect}" update=":formulariocrud"/>
+                <p:ajax event="rowUnselect" listener="#{frmTipoEstadoReserva.onRowDeselect}" update=":formulariocrud"/>
+            </p:dataTable>
+        </h:form>
+        <h:form id ="formulariocrud">
+            <h:panelGrid columns="2" id="formulariodatos">
+                <h:outputLabel value="Nombre" for="txtNombre"/>
+                <h:inputText value="#{frmTipoEstadoReserva.selectTEstadoReserva.nombre}" required="true" id="txtNombre"/>
+                <h:outputLabel value="Activo" for="chActivo"/>
+                <h:selectBooleanCheckbox id="chActivo" required="true" value="#{frmTipoEstadoReserva.selectTEstadoReserva.activo}"></h:selectBooleanCheckbox>
+                <h:outputLabel value="Indica Aprobacion" for="chAprobacion"/>
+                <h:selectBooleanCheckbox id="chAprobacion" required="true" value="#{frmTipoEstadoReserva.selectTEstadoReserva.indicaAprobacion}"></h:selectBooleanCheckbox>
+                <h:outputLabel value="Observaciones" for="txtObservaciones"/>
+                <h:inputTextarea  value="#{frmTipoEstadoReserva.selectTEstadoReserva.observaciones}" id="txtObservaciones"/>
+            </h:panelGrid>
+            <btc:botonesCrud backinBean="#{frmTipoEstadoReserva}"/>
+        </h:form>
     </h:body>
 </html>
 

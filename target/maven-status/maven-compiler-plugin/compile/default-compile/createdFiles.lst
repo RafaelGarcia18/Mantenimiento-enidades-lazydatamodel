@@ -2,6 +2,7 @@ controller/controladores/FrmTipoEstadoReserva.class
 controller/acceso/SubTipoParteFacade.class
 controller/acceso/EstadoVehiculoFacade.class
 controller/controladores/EstadoCRUD.class
+controller/controladores/FrmTipoEstadoReserva$1.class
 controller/acceso/EstadoReservaFacade.class
 controller/acceso/VehiculoFacade.class
 controller/acceso/RecorridoFacade.class
@@ -19,6 +20,7 @@ controller/controladores/FrmRecorrido.class
 controller/acceso/ViajeFacade.class
 controller/acceso/MarcaFacade.class
 controller/controladores/FrmTipoParte.class
+controller/controladores/FrmTipoEstadoVehiculo$1.class
 controller/controladores/FrmTipoVehiculo.class
 controller/acceso/ModeloParteFacade.class
 controller/controladores/FrmReserva.class
