@@ -1,12 +1,44 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:btc="http://xmlns.jcp.org/jsf/composite/composite">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Tipo parte</title>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:form id="tabla">
+            <h1>Tipo Parte</h1>
+            <h:outputText value="No existen registros en la tabla" rendered="#{empty frmTipoParte}"/>
+            <p:dataTable var="t" value="#{frmTipoParte.lazymodel}" paginator="true" rows="5" paginatorPosition="bottom" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                         selectionMode="single" selection="#{frmTipoParte.selectTipoParte}" id="Marca" lazy="true" rendered="#{not empty frmTipoParte.lazymodel}">
+                <p:column headerText="Id" >
+                    <h:outputText value="#{t.idTipoParte}" />
+                </p:column>
+                <p:column headerText="Nombre" >
+                    <h:outputText value="#{t.nombre}" />
+                </p:column>
+                <p:column headerText="Activo" >
+                    <h:outputText value="#{t.activo?'Activo':'Inactivo'}" />
+                </p:column>
+                <p:column headerText="Observaciones" >
+                    <h:outputText value="#{t.observaciones}" />
+                </p:column>
+                <p:ajax event="rowSelect" listener="#{frmTipoParte.onRowSelect}" update=":formulariocrud"/>
+                <p:ajax event="rowUnselect" listener="#{frmTipoParte.onRowDeselect}" update=":formulariocrud"/>
+            </p:dataTable>
+        </h:form>
+        <h:form id ="formulariocrud">
+            <h:panelGrid columns="2" id="formulariodatos">
+                <h:outputLabel value="Nombre" for="txtNombre"/>
+                <h:inputText value="#{frmTipoParte.selectTipoParte.nombre}" required="true" id="txtNombre"/>
+                <h:outputLabel value="Activo" for="chActivo"/>
+                <h:selectBooleanCheckbox id="chActivo" required="true" value="#{frmTipoParte.selectTipoParte.activo}"></h:selectBooleanCheckbox>
+                <h:outputLabel value="Observaciones" for="txtObservaciones"/>
+                <h:inputText value="#{frmTipoParte.selectTipoParte.observaciones}" id="txtObservaciones"/>
+            </h:panelGrid>
+            <btc:botonesCrud backinBean="#{frmTipoParte}"/>
+        </h:form>
     </h:body>
 </html>
-

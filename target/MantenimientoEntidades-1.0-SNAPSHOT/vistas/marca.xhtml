@@ -29,13 +29,12 @@
                 <p:ajax event="rowUnselect" listener="#{frmMarca.onRowDeselect}" update=":formulariocrud"/>
             </p:dataTable>
         </h:form>
-
         <h:form id ="formulariocrud">
             <h:panelGrid columns="2" id="formulariodatos">
                 <h:outputLabel value="Nombre" for="txtNombre"/>
                 <h:inputText value="#{frmMarca.selectMarca.nombre}" required="true" id="txtNombre"/>
                 <h:outputLabel value="Descripcion" for="txtDescripcion"/>
-                <h:inputText value="#{frmMarca.selectMarca.descripcion}" required="true" id="txtDescripcion"/>
+                <h:inputText value="#{frmMarca.selectMarca.descripcion}" id="txtDescripcion"/>
                 <h:outputLabel value="Activo" for="chActivo"/>
                 <h:selectBooleanCheckbox id="chActivo" required="true" value="#{frmMarca.selectMarca.activo}"></h:selectBooleanCheckbox>
             </h:panelGrid>

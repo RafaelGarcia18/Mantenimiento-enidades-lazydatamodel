@@ -13,10 +13,10 @@
     <!-- IMPLEMENTATION -->
     <cc:implementation>
         <h:panelGroup id="botones2">
-            <p:commandButton value="Crear" update="formulariocrud, tabla" actionListener="#{cc.attrs.backinBean.btnAgregarHandler}" rendered="#{cc.attrs.backinBean.estado == 'NUEVO'}"/>
-            <p:commandButton value="Actualizar" update="formulariocrud, tabla" actionListener="#{cc.attrs.backinBean.btnEditarHandler}" rendered="#{cc.attrs.backinBean.estado == 'EDITAR'}"/>
-            <p:commandButton value="Borrar" update="formulariocrud, tabla" actionListener="#{cc.attrs.backinBean.btnEliminarHandler}" rendered="#{cc.attrs.backinBean.estado == 'EDITAR'}"/>
-            <p:commandButton value="Cancelar" update="formulariocrud, tabla" actionListener="#{cc.attrs.backinBean.btnCancelarHandler}" />
+            <p:commandButton value="Crear" update=":formulariocrud, tabla" actionListener="#{cc.attrs.backinBean.btnAgregarHandler}" rendered="#{cc.attrs.backinBean.estado == 'NUEVO'}"/>
+            <p:commandButton value="Actualizar" update=":formulariocrud, tabla" actionListener="#{cc.attrs.backinBean.btnEditarHandler}" rendered="#{cc.attrs.backinBean.estado == 'EDITAR'}"/>
+            <p:commandButton value="Borrar" update=":formulariocrud, tabla" actionListener="#{cc.attrs.backinBean.btnEliminarHandler}" rendered="#{cc.attrs.backinBean.estado == 'EDITAR'}"/>
+            <p:commandButton value="Cancelar" update=":formulariocrud, tabla" actionListener="#{cc.attrs.backinBean.btnCancelarHandler}" />
         </h:panelGroup>
     </cc:implementation>
 </html>
